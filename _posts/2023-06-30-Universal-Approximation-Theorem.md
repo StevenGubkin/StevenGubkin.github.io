@@ -141,7 +141,7 @@ To help visualize this, we can look at how 4 slant_step functions sum up to a pi
 
 ![](/assets/images/sine-4.png)
 
-Let's contrast this with the kind of approximation that we could find by training a neural network.  We are using a dense layer of dimension $1 + 2\dot 4 = 9$ to match the dimension of the approximation we computed above.
+Let's contrast this with the kind of approximation that we could find by training a neural network.  We are using a dense layer of dimension $$1 + 2\dot 4 = 9$$ to match the dimension of the approximation we computed above.
 
 {% highlight py %}
 

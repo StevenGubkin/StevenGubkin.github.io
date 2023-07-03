@@ -91,9 +91,9 @@ $$
 \end{cases}
 $$
 
-Also note that it is easy to represent a non-zero constant function in the form $$\textrm{hiddden_layer}(C,W,b)$$.  If we want our constant to be $$k$$ just take $$b = |k|$$, $$W = 0$$, and $$C = \frac{b}{|b|}$$.  To represent the constant $$0$$ function we just take all of them to be zero.
+[comment]: # Also note that it is easy to represent a non-zero constant function in the form $$\textrm{hiddden_layer}(C,W,b)$$.  If we want our constant to be $$k$$ just take $$b = |k|$$, $$W = 0$$, and $$C = \frac{b}{|b|}$$.  To represent the constant $$0$$ function we just take all of them to be zero.
 
-Finally, we can represent the pointwise sum of the functions $$\textrm{hiddden_layer}(C_1,W_1,b_1)$$ and $$\textrm{hiddden_layer}(C_2,W_2,b_2)$$ as maps $$\mathbb{R} \to \mathbb{R}$$ by using 
+Finally, we can represent the pointwise sum of the functions $$\textrm{hidden_layer}(C_1,W_1,b_1)$$ and $$\textrm{hidden_layer}(C_2,W_2,b_2)$$ as maps $$\mathbb{R} \to \mathbb{R}$$ by using 
 
 $$C = \textrm{hidden_layer}\left(\begin{bmatrix} C_1 \,\, C_2 \end{bmatrix}, W = \begin{bmatrix} W_1 \\ W_2 \end{bmatrix}, b = \begin{bmatrix} b_1 \\ b_2 \end{bmatrix}\right)$$
 

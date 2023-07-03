@@ -5,7 +5,7 @@ categories:
   - Mathematics of Machine Learning
 ---
 
-This content is best viewed interactively at [this colab link](https://colab.research.google.com/drive/11IFLblHJJDmuRZo42m3WStojL5q5P7YI?usp=sharing).
+[Note: All of this code used in this post can be found at [this colab link](https://colab.research.google.com/drive/11IFLblHJJDmuRZo42m3WStojL5q5P7YI?usp=sharing), but with a slightly different exposition.]
 
 [Universal Approximation Theorems](https://en.m.wikipedia.org/wiki/Universal_approximation_theorem) are fundamental results in the mathematics of machine learning.
 
@@ -13,13 +13,13 @@ One of the best ways to understand a theorem is to try and prove it yourself. In
 
 Let's unpack that a little.
 
-The simplest feed-forward neural network is a function from $\mathbb{R} \to \mathbb{R}$ defined by 
+The simplest feed-forward neural network is a function from $$\mathbb{R} \to \mathbb{R}$$ defined by 
 
 $$x \mapsto C \textrm{ relu}(Wx + b) $$
 
-where $$W: \mathbb{R} \to \mathbb{R}^n$$ is a linear map, $$b \in \mathbb{R}^n$$ is a vector, $$\textrm{relu}: \mathbb{R}^n \to \mathbb{R}^n$$ applies $$x \mapsto \textrm{ max}(0,x)$$ to each coordinate, and $$C:\mathbb{R}^n \to \mathbb{R}$$ is another linear map.
+where $$W: \mathbb{R} \to \mathbb{R}^n$$ is a linear map, $$b \in \mathbb{R}^n$$ is a vector, $$\textrm{relu}(x) =  \textrm{ max}(0,x)$$ (applied to each coordinate), and $$C:\mathbb{R}^n \to \mathbb{R}$$ is another linear map.
 
-Our goal is to show that given any continuous function $$f: [x_1,x_2] \to \mathbb{R}$$, we can find $$n, W, b, C$$ so that the corresponding neural network approximates $$f$$ to a desired degree of accuracy.
+Our goal is to show that given any continuous function $$f: [x_1,x_2] \to \mathbb{R}$$, we can find $$n, C, W, b$$ so that the corresponding neural network approximates $$f$$ to a desired degree of accuracy with respect to some norm on the function space.
 
 We can set up all of this machinery in python pretty easily:
 
@@ -52,9 +52,9 @@ then we have
 
 $$
 \begin{align*}
-    \textrm{slant_step}(x) &= C \textrm{ relu}(Wx + b)\\ 
-    &= \begin{bmatrix} 1 & -1 \end{bmatrix} \textrm{ relu}(\begin{bmatrix} 1 \\ 1 \end{bmatrix} x + \begin{bmatrix} 0 \\ -1 \end{bmatrix})\\
-    &= \begin{bmatrix} 1 & -1 \end{bmatrix} \textrm{ relu}(\begin{bmatrix} x \\ x - 1 \end{bmatrix} \\
+    \textrm{slant_step}(x) &= C \textrm{ relu}\left(Wx + b\right)\\ 
+    &= \begin{bmatrix} 1 & -1 \end{bmatrix} \textrm{ relu}\left(\begin{bmatrix} 1 \\ 1 \end{bmatrix} x + \begin{bmatrix} 0 \\ -1 \end{bmatrix}\right)\\
+    &= \begin{bmatrix} 1 & -1 \end{bmatrix} \textrm{ relu}\left(\begin{bmatrix} x \\ x - 1 \end{bmatrix} \right)\\
     &= \begin{bmatrix} 1 & -1 \end{bmatrix} \begin{bmatrix} \textrm{ relu}(x) \\ \textrm{ relu}(x - 1) \end{bmatrix} \\
     &=  \textrm{ relu}(x)  - \textrm{ relu}(x - 1) \\
 \end{align*}
@@ -93,15 +93,18 @@ $$
 \end{cases}
 $$
 
+![](/assets/images/trans-relu.png)
+
+
 Also note that it is easy to represent a non-zero constant function in the form $$\textrm{hidden_layer}(C,W,b)$$.  If we want our constant to be $$k$$ just take $$b = \mid k \mid$$, $$W = 0$$, and $$C = \frac{b}{\mid b \mid}$$.  To represent the constant $$0$$ function we just take all of them to be zero.
 
 Finally, we can represent the pointwise sum of the functions $$\textrm{hidden_layer}(C_1,W_1,b_1)$$ and $$\textrm{hidden_layer}(C_2,W_2,b_2)$$ as maps $$\mathbb{R} \to \mathbb{R}$$ by using 
 
-$$C = \textrm{hidden_layer}\left(\begin{bmatrix} C_1 \,\, C_2 \end{bmatrix}, \begin{bmatrix} W_1 \\ W_2 \end{bmatrix}, \begin{bmatrix} b_1 \\ b_2 \end{bmatrix}\right)$$
+$$\textrm{hidden_layer}\left(\begin{bmatrix} C_1 \,\, C_2 \end{bmatrix}, \begin{bmatrix} W_1 \\ W_2 \end{bmatrix}, \begin{bmatrix} b_1 \\ b_2 \end{bmatrix}\right)$$
 
 where I am using horizontal or vertical juxtoposition to denote concatenation along the indicated axis.
 
-Putting it all together we can approximate any conntinuous function $$f: [x_1, x_2] \to \mathbb{R}$$ using a single $$\textrm{hidden_layer}$$.  The $$\textrm{hidden_layer}$$ we build will be a piecewise linear interpolation of $$f$$.  We will:
+Putting it all together we can approximate any continuous function $$f: [x_1, x_2] \to \mathbb{R}$$ using a single $$\textrm{hidden_layer}$$.  The $$\textrm{hidden_layer}$$ we build will be a piecewise linear interpolation of $$f$$.  We will:
 
 - Partition $$[x_1,x_2]$$ into $$N$$ equal-sized subintervals of width $$\textrm{run} = \frac{x_2 - x_1}{N}$$.
 - Start with the hidden_layer for the constant function $$x \mapsto f(x_1)$$
@@ -138,7 +141,35 @@ To help visualize this, we can look at how 4 slant_step functions sum up to a pi
 
 ![](/assets/images/sine-4.png)
 
-Here is the $$N = 100$$ along with all of the shifted and scaled slant_step functions which are being summed.
+Let's contrast this with the kind of approximation that we could find by training a neural network.  We are using a dense layer of dimension $1 + 2\dot 4 = 9$ to match the dimension of the approximation we computed above.
+
+{% highlight py %}
+
+import tensorflow as tf
+import keras
+from keras import layers
+
+X = np.linspace(1, 4, 1000)
+y = np.sin(X)
+
+model = keras.Sequential([
+    layers.Dense(9, activation = 'relu', use_bias = True ,input_shape=(1,)),
+    layers.Dense(1)
+])
+
+model.compile(optimizer = "rmsprop",
+              loss = "mse",
+              metrics = ["mean_squared_error"])
+
+model.fit(X, y, epochs = 200)
+
+{% endhighlight%}
+
+![](/assets/images/sine-NN.png)
+
+We can see that compared to the hidden_layer algorithm, the neural network was able to get 5 subintervals (better than our 4), and also tailored the size of these subintervals to be smaller over regions with more curvature and larger over regions with less curvature.  I will note that running this code did not always produce such a good approximation though!  Interestingly it seems that if the initial random selection of weights resulted in a line, the algorithm converged to a local minimum of the loss function which just fit a line with no subdivisions (i.e. we ended up just doing linear regression).  It is interesting to think about whether starting with algorithmically generated weights like the ones we found for universal_approx_theorem would be a better starting configuration for training than if we started with random weights.
+
+For fun here is our universal_approx_theorem using 100 subdivisions (i.e. a hidden layer of dimension 201) along with all of the shifted and scaled slant_step functions which are being summed.
 
 ![](/assets/images/sine-100.png)
 
@@ -146,9 +177,7 @@ The cool payoff here is that we have
 
 $$\sin(x) \approx C \textrm{ relu}(Wx + b)$$
 
-where $$C$$ is a 201 dimensional co-vector and $$W$$ and $$b$$ are both 201 dimensional vectors. The matrix $$b$$ is recording the partitition of the interval, $$W$$ is doing basically nothing, and $$C$$ is recording the slopes of the piecewise linear approximations.  This is showcasing how we can "learn" an arbitrary continuous function using just one relu layer!
-
-As noted, this is almost "as bad as it can get" dimension wise.  We have twice as many dimensions as "data points", and we are linearly interpolating all of our "data points".  The layers produced by a machine learning algorithm would not be so horribly inefficient.
+where $$C$$ is a 201 dimensional co-vector and $$W$$ and $$b$$ are both 201 dimensional vectors. The matrix $$b$$ is recording the partitition of the interval, $$W$$ is doing basically nothing, and $$C$$ is recording the slopes of the piecewise linear approximations.
 
 
 

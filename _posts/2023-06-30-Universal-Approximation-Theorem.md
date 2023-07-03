@@ -62,6 +62,8 @@ $$
 
 The graph of $$ - \textrm{ relu}(x - 1) $$ can be obtained from the graph of relu by shifting to the right horizontally by 1 and then reflecting over the horizontal axis.  So the graph of slant_step is obtained by adding the graph of relu and this shifted and reflected relu.
 
+![](slant-step.png)
+
 We can confirm that slant_step has the following formula by case analysis:
 
 $$

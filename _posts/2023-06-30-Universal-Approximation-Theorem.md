@@ -91,7 +91,6 @@ $$
 \end{cases}
 $$
 
-[comment]: # Also note that it is easy to represent a non-zero constant function in the form $$\textrm{hiddden_layer}(C,W,b)$$.  If we want our constant to be $$k$$ just take $$b = |k|$$, $$W = 0$$, and $$C = \frac{b}{|b|}$$.  To represent the constant $$0$$ function we just take all of them to be zero.
 
 Finally, we can represent the pointwise sum of the functions $$\textrm{hidden_layer}(C_1,W_1,b_1)$$ and $$\textrm{hidden_layer}(C_2,W_2,b_2)$$ as maps $$\mathbb{R} \to \mathbb{R}$$ by using 
 

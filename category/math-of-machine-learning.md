@@ -1,5 +1,4 @@
 ---
 layout: category
-title: Mathematics of Machine Learning
+title: Mathematics of Machine Learning 
 ---
-

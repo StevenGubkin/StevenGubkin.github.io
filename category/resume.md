@@ -3,7 +3,6 @@ layout: category
 title: Resume 
 sidebar_sort_order: 1
 ---
-<img style="float:right;border-radius:50%;width:70px;padding:6px" src="avatar-man.jpg" />
 
 <span style="float:right;padding:6px"> 
   steven.gubkin@gmail.com <br> mobile: (216) 246 - 2963
@@ -15,7 +14,7 @@ sidebar_sort_order: 1
 
 * Mathematics PhD
 * 7 years experience teaching at the college level.
-* New to machine learning (May 2023), but making rapid progress.
+* New to data science and machine learning (May 2023), but making rapid progress.
 
 ## Education & Qualifications
 

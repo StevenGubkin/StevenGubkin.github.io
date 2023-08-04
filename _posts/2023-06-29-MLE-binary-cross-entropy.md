@@ -3,7 +3,7 @@ layout: post
 title: Understanding Binary Cross-entropy
 categories: 
   - Mathematics of Machine Learning
-date: 2023-07-01 00:00:97
+date: 2023-07-01 00:00:57
 ---
 
 # Maximum Likelyhood Estimation and Binary Cross-entropy

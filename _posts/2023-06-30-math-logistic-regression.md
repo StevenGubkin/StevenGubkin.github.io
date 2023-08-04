@@ -3,7 +3,7 @@ layout: post
 title: Fitting logistic regression
 categories: 
   - Mathematics of Machine Learning
-date: 2023-07-01 00:00:96
+date: 2023-07-01 00:00:56
 ---
 
 ## Explaining the Model

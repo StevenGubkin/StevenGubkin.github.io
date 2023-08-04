@@ -3,7 +3,7 @@ layout: post
 title: Understanding the Universal Approximation Theorem for single variable real valued functions
 categories: 
   - Mathematics of Machine Learning
-date: 2023-07-01 00:00:99
+date: 2023-07-01 00:00:59
 
 ---
 

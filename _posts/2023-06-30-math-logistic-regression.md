@@ -406,7 +406,7 @@ $$
 p_{\vec{\beta}}(\vec{x}) = \sigma(\vec{\beta} \cdot \vec{x})
 $$
 
-Introducing a bit more notation, let $X$ be the $N$ by $k+1$ matrix
+Introducing a bit more notation, let $$X$$ be the $$N$$ by $$k+1$$ matrix
 
 $$
 X = \begin{bmatrix}

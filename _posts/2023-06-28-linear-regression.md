@@ -1,13 +1,11 @@
 ---
 layout: post
-title: Mathematics of fitting linear regression
+title: Fitting linear regression
 categories: 
   - Mathematics of Machine Learning
 date: 2023-07-01 00:00:58
 
 ---
-
-# The mathematics of fitting linear regression
 
 It turns out that all three of the following problems use exactly the same ideas, but with increasing levels of mathematical sophistication.
 
